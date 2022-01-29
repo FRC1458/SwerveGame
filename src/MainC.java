@@ -1,13 +1,13 @@
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+//import java.awt.event.ComponentEvent;
+//import java.awt.event.ComponentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+//import java.io.BufferedReader;
+//import java.io.BufferedWriter;
+//import java.io.File;
+//import java.io.FileReader;
+//import java.io.FileWriter;
+//import java.io.IOException;
 
 import javax.swing.JFrame;
 
@@ -70,9 +70,10 @@ public class MainC {
 		gui.setLocationRelativeTo(null);
 		gui.setVisible(true);
 		gui.requestFocusInWindow();
-        
+        /*
 		gui.addComponentListener(new ComponentListener() {
 			@Override
+			
 			public void componentResized(ComponentEvent e) {
 				gui.changeWindow();
 			}
@@ -81,7 +82,7 @@ public class MainC {
 			@Override public void componentMoved(ComponentEvent arg0) {}
 			@Override public void componentShown(ComponentEvent arg0) {}
 		});
-		
+		*/
         gui.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent e) {
 			    switch (e.getKeyCode()){
@@ -107,7 +108,7 @@ public class MainC {
 		        e.consume();
 			}
 		});
-        
+        /*
         if ((new File("highscore.hs")).exists() == false){
         	try {
         	    BufferedWriter out = new BufferedWriter(new FileWriter("highscore.hs"));
@@ -132,7 +133,7 @@ public class MainC {
             	} catch (IOException e) {}
             }
         }));
-        
+        */
         long s = System.currentTimeMillis();
         while(true){
         	if(System.currentTimeMillis()-s > 10){
@@ -190,13 +191,13 @@ public class MainC {
 	    	time = System.currentTimeMillis();
 		}
 		if(timing){
-			gui.printTime(System.currentTimeMillis()-time);
+			//gui.printTime(System.currentTimeMillis()-time);
 			if(System.currentTimeMillis()-time > 20000){
 				timing = false;
 				int points = gui.getPoints();
 				if(points > highScore){
 					highScore = points;
-					gui.setHighScore(points);
+					//gui.setHighScore(points);
 				}
 			}
 		}

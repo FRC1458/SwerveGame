@@ -18,16 +18,17 @@ import javax.swing.JRadioButtonMenuItem;
 import net.java.games.input.Controller;
 
 public class GUI extends JFrame{
-
+	/*
 	private Ball[] Balls = {
 			new Ball(Ball.bc.red),new Ball(Ball.bc.red),new Ball(Ball.bc.red),new Ball(Ball.bc.red),new Ball(Ball.bc.red),
 			new Ball(Ball.bc.blue),new Ball(Ball.bc.blue),new Ball(Ball.bc.blue),new Ball(Ball.bc.pink),new Ball(Ball.bc.pink),
 			new Ball(Ball.bc.orange),new Ball(Ball.bc.yellow)};
+	*/
 	private SwerveGui My_Swerve = new SwerveGui();
 	Painting Floor = new Painting();
 	long time = -1;
 	int highScore = 0;
-	boolean freeMode = false;
+	boolean freeMode = true;
 	Controller.Type type = null;
 	
 	private JRadioButtonMenuItem mCrab = new JRadioButtonMenuItem("Crab Mode");
@@ -94,8 +95,9 @@ public class GUI extends JFrame{
 		}
 		Floor.repaint();
 	}
-	
+	/*
 	public boolean IsContacting(int i, int winWidth, int winHeight){
+		
 		int ballX = winWidth/2+Balls[i].ballX;
 		int ballY = winHeight/2-Balls[i].ballY;
 		boolean frontBound = true;
@@ -103,6 +105,7 @@ public class GUI extends JFrame{
 		if(My_Swerve.resetInFront){
 			Balls[i].prevInFront = false;
 		}
+		
 		if(My_Swerve.FRx - My_Swerve.FLx > 0){
 			frontBound = (ballY-My_Swerve.FRy <= (float)(My_Swerve.FRy - My_Swerve.FLy)/(My_Swerve.FRx - My_Swerve.FLx)*(ballX-My_Swerve.FRx));
 		}else if(My_Swerve.FRx - My_Swerve.FLx < 0){
@@ -130,7 +133,7 @@ public class GUI extends JFrame{
 		Balls[i].prevInFront = curInFront;
 		return isContacting;
 	}
-
+	*/
 	public int getPoints() {
 		time = -1;
 		return Floor.points;
@@ -139,20 +142,21 @@ public class GUI extends JFrame{
 	public void printTime(long l) {
 		time = l;
 	}
-
+	/*
 	public void setHighScore(int points) {
 		highScore = points;
 	}
-
+	*/
 	public void resetPoints() {
 		Floor.points = 0;
 	}
-
+	/*
 	public void changeWindow() {
 		for(int i = 0; i < Balls.length; i++){
 			Balls[i].changeWindow(Floor.getWidth(), Floor.getHeight());
 		}
 	}
+	*/
 	
 	public class meventDrive implements ActionListener{
 		public void actionPerformed(ActionEvent me1){
@@ -226,6 +230,7 @@ public class GUI extends JFrame{
 		int points = 0;
 		public void paintComponent(Graphics g){
 			super.paintComponent(g);
+			/*
 			for(int i = 0; i < Balls.length; i++){
 				Balls[i].paint(g, this.getHeight(), this.getWidth());
 				if(IsContacting(i, this.getWidth(), this.getHeight())){
@@ -236,6 +241,7 @@ public class GUI extends JFrame{
 					}
 				}
 			}
+			*/
 			/*boolean frontBound = false;
 			boolean middleBound = false;
 			for(int ballX = 0; ballX < this.getWidth(); ballX+=20){
@@ -278,19 +284,22 @@ public class GUI extends JFrame{
 			My_Swerve.paint(g, this.getHeight(), this.getWidth());
 			g.setColor(Color.BLACK);
     		g.setFont(new Font("Arial", Font.PLAIN, 50));
-			g.drawString("Score: "+points, 5, this.getHeight()-5);
+			//g.drawString("Score: "+points, 5, this.getHeight()-5);
 			if(time<0){
 				if(type == Controller.Type.GAMEPAD){
 					g.drawString("Press A to Start", 5, 50);
 				}else if(type == Controller.Type.STICK){
 					g.drawString("Press Button 1 to Start", 5, 50);
 				}else{
-					g.drawString("Press Space to Start", 5, 50);
+					//g.drawString("Press Space to Start", 5, 50);
 				}
-			}else{
+			}
+			/*
+			else{
 				g.drawString("Time: "+(20000-time)/1000.0, 5, 50);
 			}
 			g.drawString("High Score: "+highScore, this.getWidth()/2+5, this.getHeight()-5);
+			*/
 		}
 	}
 }
