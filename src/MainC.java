@@ -29,8 +29,11 @@ public class MainC {
     static Component stickY2 = null;
     static Component startBtn = null;
 	static float [] joys = new float[4];
+
+	//int cntr;
 	
 	public static void main (String args[]){
+		//cntr = 0;
 		Controller[] ca = ControllerEnvironment.getDefaultEnvironment().getControllers();
 		Controller xbox = null;
 		Controller stick1 = null;
@@ -161,9 +164,26 @@ public class MainC {
         			gui.Drive(joys);
         			timer(reset);
         		}
+				randomwalk();
 	            s = System.currentTimeMillis();
         	}
         }
+	}
+	public static void randomwalk() {
+		double i = 0;
+		while (i < 150) {
+			joys[0] = (float) (0); //  Vertical Motion
+			joys[1] = (float) (0); // Horizontal Motion
+			joys[2] = 0; // Purpose unknown
+			joys[3] = (float) (10); // Rotation Speed
+			gui.Drive(joys);
+			i += 10;
+		}
+		joys[0] = (float) (0); //  Vertical Motion
+		joys[1] = (float) (0); // Horizontal Motion
+		joys[2] = 0; // Purpose unknown
+		joys[3] = (float) (0); // Rotation Speed
+		gui.Drive(joys);
 	}
 
 	static void joysticks(){
