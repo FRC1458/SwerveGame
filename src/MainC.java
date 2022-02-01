@@ -198,7 +198,6 @@ public class MainC {
 		}
 		
 		
-		
 		joys[0] = (float) (0); //  Vertical Motion
 		joys[1] = (float) (0); // Horizontal Motion
 		joys[2] = 0; // Purpose unknown
