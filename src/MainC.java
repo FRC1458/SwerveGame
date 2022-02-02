@@ -187,21 +187,25 @@ public class MainC {
 	}
 
 	public static void randomwalk() {
-	
-		if (cntr < 57) {
-			joys[0] = (float) (0); // Vertical Motion
-			joys[1] = (float) (-1); // Horizontal Motion
-			joys[2] = 0; // Purpose unknown
-			joys[3] = (float) (0); // Rotation Speed
+		Camera cam = new Camera();
+		double rotationAngle = cam.angle();
+		double hypotenuseLength = cam.hypotenuse();
+		if (cntr < rotationAngle*11.7) {
+			//joys[0] = (float) (0); // Vertical Motion
+			//joys[1] = (float) (0); // Horizontal Motion
+			//joys[2] = 0; // Purpose unknown
+			joys[3] = (float) (-0.5); // Rotation Speed
 			gui.Drive(joys);
 			cntr++;
 		}
-		
-		
-		joys[0] = (float) (0); //  Vertical Motion
-		joys[1] = (float) (0); // Horizontal Motion
-		joys[2] = 0; // Purpose unknown
-		joys[3] = (float) (0); // Rotation Speed
+		if (cntr == rotationAngle*11.7 || cntr > rotationAngle*11.7) {
+			joys[0] = (float) (0);
+			joys[1] = (float) (0);
+		}
+		//joys[0] = (float) (0); //  Vertical Motion
+		//joys[1] = (float) (0); // Horizontal Motion
+		//joys[2] = 0; // Purpose unknown
+		//joys[3] = (float) (0); // Rotation Speed
 		gui.Drive(joys);
 		
 	}
