@@ -40,7 +40,12 @@ public class SwerveGui{
 	public double getZ(){
 		return diag*pxPerIn;
 	}
-
+	public double getRobotX() {
+		return RobotX;
+	}
+	public double getRobotY() {
+		return RobotY;
+	}
 	public void setScreenSize(int width, int height) {
 		pxPerIn = (height/8)/Robot.m_dRobotLen;
 	}
