@@ -1,7 +1,8 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Users\\vlad1\\Downloads\\jinput.jar"
+        "c:\\Users\\vlad1\\Downloads\\jinput.jar",
+        "jinput_lib/**/*.jar"
     ],
     "files.exclude": {
         "**/.classpath": true,
