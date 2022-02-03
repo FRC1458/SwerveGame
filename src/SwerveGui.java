@@ -47,6 +47,9 @@ public class SwerveGui{
 	double makeRandom1 = (Math.random()*((1000)+1));
 	int randomInt1 = (int)makeRandom1;
 
+	double makeRandom2 = (Math.random()*((600)+1));
+	int randomInt2 = (int)makeRandom2;
+	
 	public double getRobotX() {
 		return RobotX;
 	}
@@ -57,8 +60,7 @@ public class SwerveGui{
 		pxPerIn = (height/8)/Robot.m_dRobotLen;
 	}
 	
-	double makeRandom2 = (Math.random()*((600)+1));
-	int randomInt2 = (int)makeRandom2;
+	
 
 	public void paint(Graphics g, int WinHeight, int WinWidth){
 		int height = (int) (WinHeight*size);
