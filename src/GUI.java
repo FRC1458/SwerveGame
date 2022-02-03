@@ -42,6 +42,9 @@ public class GUI extends JFrame{
 	private JMenuItem mSize = new JMenuItem("Size");
 	private JMenuItem mUseKeyboard = new JMenuItem("Use Keyboard");
 	
+	double getrx() {
+		return My_Swerve.getX();
+	}
 	public GUI(Controller.Type itype){
 		type = itype;
 		

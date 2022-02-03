@@ -43,8 +43,19 @@ public class SwerveGui{
 		return diag*pxPerIn;
 	}
 
+
 	double makeRandom1 = (Math.random()*((1000)+1));
 	int randomInt1 = (int)makeRandom1;
+
+	public double getRobotX() {
+		return RobotX;
+	}
+	public double getRobotY() {
+		return RobotY;
+	}
+	public void setScreenSize(int width, int height) {
+		pxPerIn = (height/8)/Robot.m_dRobotLen;
+	}
 	
 	double makeRandom2 = (Math.random()*((600)+1));
 	int randomInt2 = (int)makeRandom2;
@@ -55,6 +66,7 @@ public class SwerveGui{
 		int width = (int)(pxPerIn*Robot.m_dRobotWidth);
 		double radius = Math.sqrt(width*width+height*height)/2.0;
 		double angle = Math.atan2(height,width);
+
 		g.drawOval(randomInt1,randomInt2,30,30);
 
 		if(Robot.m_eDriveMode == Swerve.driveMode.gyro){
