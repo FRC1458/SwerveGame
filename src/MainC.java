@@ -182,10 +182,7 @@ public class MainC {
 			gui.Drive(joys);
 			cntr++;
 		}
-		if (cntr == rotationAngle*11.7 || cntr > rotationAngle*11.7) {
-			joys[0] = (float) (0);
-			joys[1] = (float) (0);
-		}
+
 		//joys[0] = (float) (0); //  Vertical Motion
 		//joys[1] = (float) (0); // Horizontal Motion
 		//joys[2] = 0; // Purpose unknown

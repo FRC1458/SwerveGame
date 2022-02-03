@@ -7,11 +7,11 @@ public class Camera {
     public double distanceY(double ballY, double robotY) {
         return (ballY - robotY);
     }
-    double ballToRobotX = distanceX(10.0, Coords.getRobotX());
-    double ballToRobotY = distanceY(100.0, Coords.getRobotY());
+    double ballToRobotX = distanceX(Coords.randomInt1, Coords.getRobotX());
+    double ballToRobotY = distanceY(Coords.randomInt2, Coords.getRobotY());
     public double angle() {
         double angle = Math.atan(ballToRobotY/ballToRobotX);
-        //System.out.println(angle);
+        System.out.println(angle*180/Math.PI);
         return angle;
     }
     public double hypotenuse() {
