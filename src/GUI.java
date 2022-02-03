@@ -45,8 +45,8 @@ public class GUI extends JFrame{
 	double getrx() {
 		return My_Swerve.getX();
 	}
-	public GUI(Controller.Type itype){
-		type = itype;
+	public GUI(Controller.Type type){
+		type = type;
 		
 		setLayout(new BorderLayout());
 		
