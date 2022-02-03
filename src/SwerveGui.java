@@ -56,7 +56,7 @@ public class SwerveGui{
 		int width = (int)(pxPerIn*Robot.m_dRobotWidth);
 		double radius = Math.sqrt(width*width+height*height)/2.0;
 		double angle = Math.atan2(height,width);
-		g.drawOval(10,100,220,220);
+		//g.drawOval(10,100,220,220);
 		if(Robot.m_eDriveMode == Swerve.driveMode.gyro){
 			Robot.m_dGyroAngle = (RobotR + Math.PI/2) % (2*Math.PI);
 			if(Robot.m_dGyroAngle<0){

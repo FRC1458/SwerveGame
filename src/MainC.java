@@ -3,6 +3,7 @@
 //import java.awt.event.ComponentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.lang.Math;
 //import java.util.concurrent.TimeUnit;
 //import java.io.BufferedReader;
 //import java.io.BufferedWriter;
@@ -190,11 +191,11 @@ public class MainC {
 		Camera cam = new Camera();
 		double rotationAngle = cam.angle();
 		double hypotenuseLength = cam.hypotenuse();
-		if (cntr < rotationAngle*11.7) {
+		if (cntr < rotationAngle) {
 			//joys[0] = (float) (0); // Vertical Motion
 			//joys[1] = (float) (0); // Horizontal Motion
 			//joys[2] = 0; // Purpose unknown
-			joys[3] = (float) (-0.5); // Rotation Speed
+			joys[3] = (float) (-1222.0/9999.0); // Rotation Speed
 			gui.Drive(joys);
 			cntr++;
 		}
