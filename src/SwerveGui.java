@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
+
 
 public class SwerveGui{
 	
@@ -41,17 +43,20 @@ public class SwerveGui{
 		return diag*pxPerIn;
 	}
 
-	public void setScreenSize(int width, int height) {
-		pxPerIn = (height/8)/Robot.m_dRobotLen;
-	}
+	double makeRandom1 = (Math.random()*((1000)+1));
+	int randomInt1 = (int)makeRandom1;
 	
+	double makeRandom2 = (Math.random()*((600)+1));
+	int randomInt2 = (int)makeRandom2;
+
 	public void paint(Graphics g, int WinHeight, int WinWidth){
 		int height = (int) (WinHeight*size);
 		pxPerIn = (height)/Robot.m_dRobotLen;
 		int width = (int)(pxPerIn*Robot.m_dRobotWidth);
 		double radius = Math.sqrt(width*width+height*height)/2.0;
 		double angle = Math.atan2(height,width);
-		g.drawOval(10,111,220,220);
+		g.drawOval(randomInt1,randomInt2,30,30);
+
 		if(Robot.m_eDriveMode == Swerve.driveMode.gyro){
 			Robot.m_dGyroAngle = (RobotR + Math.PI/2) % (2*Math.PI);
 			if(Robot.m_dGyroAngle<0){

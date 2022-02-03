@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -301,5 +302,12 @@ public class GUI extends JFrame{
 			g.drawString("High Score: "+highScore, this.getWidth()/2+5, this.getHeight()-5);
 			*/
 		}
+
+	
+		
 	}
+	
+
+
+
 }
