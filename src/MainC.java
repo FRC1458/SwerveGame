@@ -172,8 +172,9 @@ public class MainC {
 	}
 	public static void randomwalk() {
 		Camera cam = new Camera();
-		double rotationAngle = cam.angle();
-		double hypotenuseLength = cam.hypotenuse();
+		//double rotationAngle = cam.angle();
+		//double hypotenuseLength = cam.hypotenuse();
+		/*
 		if (cntr < rotationAngle) {
 			//joys[0] = (float) (0); // Vertical Motion
 			//joys[1] = (float) (0); // Horizontal Motion
@@ -182,6 +183,7 @@ public class MainC {
 			gui.Drive(joys);
 			cntr++;
 		}
+		*/
 
 		//joys[0] = (float) (0); //  Vertical Motion
 		//joys[1] = (float) (0); // Horizontal Motion
