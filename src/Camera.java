@@ -11,11 +11,10 @@ public class Camera {
     double ballToRobotY = distanceY(Coords.randomInt2, Coords.getRobotY());
     public double angle() {
         double angle = Math.atan(ballToRobotY/ballToRobotX);
-        System.out.println(angle*180/Math.PI);
         return angle;
     }
     public double hypotenuse() {
-        double hypotenuse = Math.sqrt(Math.pow(ballToRobotX, 2) + Math.pow(ballToRobotY, 2));
+        double hypotenuse = Math.sqrt(Math.pow(ballToRobotX,2)+Math.pow(ballToRobotY,2));
         return hypotenuse;
     }
 }
