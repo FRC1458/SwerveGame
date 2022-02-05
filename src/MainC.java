@@ -174,7 +174,7 @@ public class MainC {
 	
 	
 	public static void randomwalk() {
-		Camera cam = new Camera();
+		//Camera cam = new Camera();
 		//double rotationAngle = cam.angle();
 		//double hypotenuseLength = cam.hypotenuse();
 		/*

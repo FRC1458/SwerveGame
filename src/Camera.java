@@ -23,7 +23,7 @@ public class Camera {
 
         double magVectorA = Math.sqrt(Math.pow(vectorAX, 2) + Math.pow(vectorAY, 2));
         double magVectorB = Math.sqrt(Math.pow(vectorBX, 2) + Math.pow(vectorBY, 2));
-        double angle = Math.acos(((vectorAX*vectorBX) + (vectorBY*vectorAY))/(magVectorA*magVectorB));
+        double angle = Math.toDegrees(Math.acos(((vectorAX*vectorBX) + (vectorBY*vectorAY))/(magVectorA*magVectorB)));
         System.out.println(angle);
         return angle;
     }
