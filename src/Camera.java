@@ -15,9 +15,7 @@ public class Camera {
         return angle;
     }
     public double hypotenuse() {
-        double hypotenuse1 = Math.pow(ballToRobotX, 2);
-        double hypotenuse2 = Math.pow(ballToRobotY, 2);
-        double hypotenuse = Math.pow((hypotenuse1 + hypotenuse2), 0.5);
+        double hypotenuse = Math.sqrt(Math.pow(ballToRobotX, 2) + Math.pow(ballToRobotY, 2));
         return hypotenuse;
     }
 }
