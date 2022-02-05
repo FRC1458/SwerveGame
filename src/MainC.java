@@ -208,7 +208,7 @@ public class MainC {
 		gui.Drive(joys);
 	}
 	
-	static void timer(boolean startBtn){
+	static void timer(boolean startBtn){ 
 		if(startBtn)
 		{
 			gui.resetPoints();
@@ -229,4 +229,3 @@ public class MainC {
 		}
 	}
 }
-	
