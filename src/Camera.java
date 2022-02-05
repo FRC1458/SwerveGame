@@ -9,10 +9,16 @@ public class Camera {
     }
     double ballToRobotX = distanceX(Coords.randomInt1, Coords.getRobotX());
     double ballToRobotY = distanceY(Coords.randomInt2, Coords.getRobotY());
-    public double angle() {
-        double angle = Math.atan(ballToRobotY/ballToRobotX);
+    public double angle(double vectorX, double vectorY) {
+        /*double angle = Math.atan(ballToRobotY/ballToRobotX);
         System.out.println(angle*180/Math.PI);
-        return angle;
+        return angle;*/
+        /*double angle = Math.acos((vectorX*vectorY)/(Math.abs(vectorX)*Math.abs(vectorY)));
+        System.out.println(angle);
+        return angle;*/
+        return 0;
+
+
     }
     public double hypotenuse() {
         double hypotenuse = Math.sqrt(Math.pow(ballToRobotX, 2) + Math.pow(ballToRobotY, 2));
