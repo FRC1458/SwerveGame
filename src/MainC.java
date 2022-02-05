@@ -32,6 +32,7 @@ public class MainC {
 	static float [] joys = new float[4];
 
 	static int cntr;
+	static Camera cam = new Camera();
 	
 	public static void main (String args[]){
 		cntr = 0;
@@ -170,6 +171,8 @@ public class MainC {
         	}
         }
 	}
+	
+	
 	public static void randomwalk() {
 		Camera cam = new Camera();
 		//double rotationAngle = cam.angle();
