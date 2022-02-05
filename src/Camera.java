@@ -11,7 +11,7 @@ public class Camera {
     double vectorY1 = distanceY(Coords.randomInt2, Coords.getRobotY());
     public double angle() {
         double angle = Math.acos((vectorX*hypotenuse())/(Math.abs(vectorX))*Math.abs(hypotenuse()));
-        System.out.println(angle*180/Math.PI);
+        //System.out.println(angle*180/Math.PI);
         return angle*180/Math.PI;
     }
     double ballToRobotX = distanceX(Coords.randomInt1, Coords.getRobotX());
