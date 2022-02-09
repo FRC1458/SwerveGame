@@ -17,7 +17,7 @@ import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
 public class MainC {
-	
+	//Camera cam = new Camera();
 	static byte[] keys = {0,0,0,0,0,0}; // WSADLR
 	static boolean timing = false;
 	static boolean reset = false;
@@ -32,7 +32,7 @@ public class MainC {
 	static float [] joys = new float[4];
 
 	static int cntr;
-	static Camera cam = new Camera();
+	static Camera cam;
 	
 	public static void main (String args[]){
 		cntr = 0;
@@ -40,7 +40,7 @@ public class MainC {
 		Controller xbox = null;
 		Controller stick1 = null;
 		Controller stick2 = null;
-        Controller.Type type = null;
+		Controller.Type type = null;
         for(int i =0;i<ca.length;i++){
         	if(ca[i].getType() == Controller.Type.GAMEPAD){
         		xbox = ca[i];
@@ -68,6 +68,7 @@ public class MainC {
         }
         
 		gui = new GUI(type);
+		cam = new Camera(gui.SwerveGui());
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gui.pack();
 		//gui.setResizable(false);
@@ -158,15 +159,18 @@ public class MainC {
             			gui.type = null;
             		}
         		}else{
+					/*
         			double keyboardSpeed = 0.8;
         			joys[0] = (float) (keyboardSpeed*(keys[1] - keys[0]));
         			joys[1] = (float) (keyboardSpeed*(keys[3] - keys[2]));
         			joys[2] = 0;
         			joys[3] = (float) (keyboardSpeed*(keys[5] - keys[4]));
-        			gui.Drive(joys);
+					gui.Drive(joys);
+					*/
+					randomwalk();
+
         			timer(reset);
         		}
-				randomwalk();
 	            s = System.currentTimeMillis();
         	}
         }
@@ -174,25 +178,32 @@ public class MainC {
 	
 	
 	public static void randomwalk() {
-		//Camera cam = new Camera();
-		//double rotationAngle = cam.angle();
+		double rotationAngle = cam.angle();
 		//double hypotenuseLength = cam.hypotenuse();
-		/*
-		if (cntr < rotationAngle) {
+
+	
+		if (cntr < 1000 && Math.abs(rotationAngle*3) > 0.1)  {
+			System.out.println(rotationAngle);
 			//joys[0] = (float) (0); // Vertical Motion
 			//joys[1] = (float) (0); // Horizontal Motion
 			//joys[2] = 0; // Purpose unknown
-			joys[3] = (float) (-1222.0/9999.0); // Rotation Speed
+			joys[3] = (float) -.5; // Rotation Speed
+			if (rotationAngle < Math.PI/2) {
+				joys[3] = (float) -.5; // Rotation Speed
+			} 
+			else {
+				joys[3] = (float) 0.5;
+			}
 			gui.Drive(joys);
 			cntr++;
 		}
-		*/
+	
 
 		//joys[0] = (float) (0); //  Vertical Motion
 		//joys[1] = (float) (0); // Horizontal Motion
 		//joys[2] = 0; // Purpose unknown
 		//joys[3] = (float) (0); // Rotation Speed
-		gui.Drive(joys);
+		//gui.Drive(joys);
 	}
 
 	static void joysticks(){

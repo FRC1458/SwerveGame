@@ -21,6 +21,7 @@ public class SwerveGui{
 	boolean resetInFront = false;
 	double speed = 10;
 	double size = 1/6.0;
+	double frontX, frontY;
 	
 	public void Drive(float[] joys) { // y1, x1, y2, x2
 		Robot.Drive(joys[1], -joys[0], joys[3]);
@@ -28,6 +29,14 @@ public class SwerveGui{
 
 	public void setDriveMode(Swerve.driveMode dm) {
 		Robot.m_eDriveMode = dm;
+	}
+	
+	public double getFrontX() {
+		return frontX;
+	}
+
+	public double getFrontY() {
+		return frontY;
 	}
 	
 	public int getX(){
@@ -43,15 +52,21 @@ public class SwerveGui{
 	}
 
 
-	int ballX = (int)(Math.random()*((1000)+1));
-
-	int ballY = (int)(Math.random()*((600)+1));
+	//int ballX = (int)(Math.random()*((1000)+1));
+	public double angle = 0;
+	public int ballX = 400;
+	public int ballY = 200;
+	//int ballY = (int)(Math.random()*((600)+1));
 	
 	public double getRobotX() {
 		return RobotX;
 	}
 	public double getRobotY() {
 		return RobotY;
+	}
+
+	public double getAngle() {
+		return angle;
 	}
 	public void setScreenSize(int width, int height) {
 		pxPerIn = (height/8)/Robot.m_dRobotLen;
@@ -64,9 +79,10 @@ public class SwerveGui{
 		pxPerIn = (height)/Robot.m_dRobotLen;
 		int width = (int)(pxPerIn*Robot.m_dRobotWidth);
 		double radius = Math.sqrt(width*width+height*height)/2.0;
-		double angle = Math.atan2(height,width);
+		angle = Math.atan2(height,width);
 
 		g.drawOval(ballX, ballY, 30, 30);
+
 
 		if(Robot.m_eDriveMode == Swerve.driveMode.gyro){
 			Robot.m_dGyroAngle = (RobotR + Math.PI/2) % (2*Math.PI);
@@ -132,6 +148,7 @@ public class SwerveGui{
 			RobotY = (RobotY>0)? RobotY-WinHeight/pxPerIn : RobotY+WinHeight/pxPerIn;
 			resetInFront = true;
 		}
+		
 		// paint robot
 		FRx = WinWidth/2+(int)Math.round(radius*Math.cos(angle+RobotR))+getX();
 		FRy = WinHeight/2-(int)Math.round(radius*Math.sin(angle+RobotR))-getY();
@@ -146,7 +163,9 @@ public class SwerveGui{
 		g.setColor(new Color(0, 127, 255));
 		g.fillPolygon(xPoints, yPoints, 4);
 		int[] txPoints = new int[]{BLx,BRx,(FRx+FLx)/2};
+		frontX = txPoints[2];
 		int[] tyPoints = new int[]{BLy,BRy,(FRy+FLy)/2};
+		frontY = tyPoints[2];
 		g.setColor(Color.GREEN);
 		g.fillPolygon(txPoints, tyPoints, 3);
 		g.setColor(Color.BLACK);
