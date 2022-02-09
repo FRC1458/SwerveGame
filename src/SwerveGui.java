@@ -54,8 +54,8 @@ public class SwerveGui{
 
 	//int ballX = (int)(Math.random()*((1000)+1));
 	public double angle = 0;
-	public int ballX = 400;
-	public int ballY = 200;
+	public int ballX = 600;
+	public int ballY = 121;
 	//int ballY = (int)(Math.random()*((600)+1));
 	
 	public double getRobotX() {

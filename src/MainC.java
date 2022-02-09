@@ -180,22 +180,29 @@ public class MainC {
 	public static void randomwalk() {
 		double rotationAngle = cam.angle();
 		//double hypotenuseLength = cam.hypotenuse();
+		
+		//System.out.println(cam.angle());
 
-	
-		if (cntr < 1000 && Math.abs(rotationAngle*3) > 0.1)  {
-			System.out.println(rotationAngle);
+		if (/*cntr < 1000 && */rotationAngle > 0.1)  {
+			//ystem.out.println(cam.angle());
 			//joys[0] = (float) (0); // Vertical Motion
 			//joys[1] = (float) (0); // Horizontal Motion
 			//joys[2] = 0; // Purpose unknown
 			joys[3] = (float) -.5; // Rotation Speed
+			/*
 			if (rotationAngle < Math.PI/2) {
 				joys[3] = (float) -.5; // Rotation Speed
 			} 
+			
 			else {
 				joys[3] = (float) 0.5;
 			}
+			*/
 			gui.Drive(joys);
-			cntr++;
+			//cntr++;
+		}
+		else {
+			joys[3] = (float) (0);
 		}
 	
 
