@@ -52,11 +52,11 @@ public class SwerveGui{
 	}
 
 
-	//int ballX = (int)(Math.random()*((1000)+1));
-	public double angle = 0;
-	public int ballX = 600;
-	public int ballY = 121;
-	//int ballY = (int)(Math.random()*((600)+1));
+	int ballX = (int)(Math.random()*((1000)+1));
+	//public double angle = 0;
+	//public int ballX = 600;
+	//public int ballY = 0;
+	int ballY = (int)(Math.random()*((600)+1));
 	
 	public double getRobotX() {
 		return RobotX;
@@ -64,10 +64,11 @@ public class SwerveGui{
 	public double getRobotY() {
 		return RobotY;
 	}
-
+	/*
 	public double getAngle() {
 		return angle;
 	}
+	*/
 	public void setScreenSize(int width, int height) {
 		pxPerIn = (height/8)/Robot.m_dRobotLen;
 	}
@@ -79,7 +80,7 @@ public class SwerveGui{
 		pxPerIn = (height)/Robot.m_dRobotLen;
 		int width = (int)(pxPerIn*Robot.m_dRobotWidth);
 		double radius = Math.sqrt(width*width+height*height)/2.0;
-		angle = Math.atan2(height,width);
+		double angle = Math.atan2(height,width);
 
 		g.drawOval(ballX, ballY, 30, 30);
 
