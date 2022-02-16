@@ -194,7 +194,7 @@ public class MainC {
 			//joys[1] = (float) (0); // Horizontal Motion
 			//joys[2] = 0; // Purpose unknown
 			joys[3] = (float) -.5; // Rotation Speed
-			if (rotationAngle < Math.PI/2) {
+			if (rotationAngle + 92 < Math.PI/2) {
 				joys[3] = (float) -.5; // Rotation Speed
 			}
 			else {
