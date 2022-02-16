@@ -22,6 +22,7 @@ public class SwerveGui{
 	double speed = 10;
 	double size = 1/6.0;
 	double frontX, frontY;
+	double trueRobotX, trueRobotY;
 	
 	public void Drive(float[] joys) { // y1, x1, y2, x2
 		Robot.Drive(joys[1], -joys[0], joys[3]);
@@ -53,10 +54,14 @@ public class SwerveGui{
 
 
 	int ballX = (int)(Math.random()*((1000)+1));
-	//public double angle = 0;
-	//public int ballX = 600;
-	//public int ballY = 0;
 	int ballY = (int)(Math.random()*((600)+1));
+
+	public void setBall() {
+		ballX = (int)(Math.random()*((1000)+1));
+		ballY = (int)(Math.random()*((600)+1));
+	}
+
+	public double angle = 0;
 	
 	public double getRobotX() {
 		return RobotX;
@@ -64,13 +69,20 @@ public class SwerveGui{
 	public double getRobotY() {
 		return RobotY;
 	}
-	/*
+
 	public double getAngle() {
 		return angle;
 	}
-	*/
 	public void setScreenSize(int width, int height) {
 		pxPerIn = (height/8)/Robot.m_dRobotLen;
+	}
+
+	public  double getTrueRobotX() {
+		return trueRobotX;
+	}
+
+	public double getTrueRobotY() {
+		return trueRobotY;
 	}
 	
 	
@@ -80,7 +92,7 @@ public class SwerveGui{
 		pxPerIn = (height)/Robot.m_dRobotLen;
 		int width = (int)(pxPerIn*Robot.m_dRobotWidth);
 		double radius = Math.sqrt(width*width+height*height)/2.0;
-		double angle = Math.atan2(height,width);
+		angle = Math.atan2(height,width);
 
 		g.drawOval(ballX, ballY, 30, 30);
 
@@ -156,7 +168,7 @@ public class SwerveGui{
 		FLx = WinWidth/2+(int)Math.round(radius*Math.cos(Math.PI-angle+RobotR))+getX();
 		FLy = WinHeight/2-(int)Math.round(radius*Math.sin(Math.PI-angle+RobotR))-getY();
 		BLx = WinWidth/2+(int)Math.round(radius*Math.cos(angle+Math.PI+RobotR))+getX();
-		BLy = WinHeight/2-(int)Math.round(radius*Math.sin(angle+Math.PI+RobotR))-getY();
+			BLy = WinHeight/2-(int)Math.round(radius*Math.sin(angle+Math.PI+RobotR))-getY();
 		BRx = WinWidth/2+(int)Math.round(radius*Math.cos(2*Math.PI-angle+RobotR))+getX();
 		BRy = WinHeight/2-(int)Math.round(radius*Math.sin(2*Math.PI-angle+RobotR))-getY();
 		int[] xPoints = new int[]{FLx,BLx,BRx,FRx};
@@ -167,6 +179,8 @@ public class SwerveGui{
 		frontX = txPoints[2];
 		int[] tyPoints = new int[]{BLy,BRy,(FRy+FLy)/2};
 		frontY = tyPoints[2];
+		trueRobotX = (FRx+BLx)/2;
+		trueRobotY = (FRy+BLy)/2;
 		g.setColor(Color.GREEN);
 		g.fillPolygon(txPoints, tyPoints, 3);
 		g.setColor(Color.BLACK);

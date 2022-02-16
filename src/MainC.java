@@ -18,7 +18,7 @@ import net.java.games.input.ControllerEnvironment;
 
 public class MainC {
 	//Camera cam = new Camera();
-	static byte[] keys = {0,0,0,0,0,0}; // WSADLR
+	static byte[] keys = {0,0,0,0,0,0,0}; // WSADLR
 	static boolean timing = false;
 	static boolean reset = false;
 	static long time;
@@ -98,7 +98,8 @@ public class MainC {
 		        case KeyEvent.VK_D:		keys[3] = 1;	break;
 		        case KeyEvent.VK_LEFT:	keys[4] = 1;	break;
 		        case KeyEvent.VK_RIGHT:	keys[5] = 1;	break;
-		        case KeyEvent.VK_SPACE:	reset = true;	break;
+				case KeyEvent.VK_SPACE:	reset = true;	break;
+				case KeyEvent.VK_ENTER: keys[6] = 1; 	break;
 			    }
 		        e.consume();
 		    }
@@ -109,7 +110,8 @@ public class MainC {
 		        case KeyEvent.VK_A:		keys[2] = 0;	break;
 		        case KeyEvent.VK_D:		keys[3] = 0;	break;
 		        case KeyEvent.VK_LEFT:	keys[4] = 0;	break;
-		        case KeyEvent.VK_RIGHT:	keys[5] = 0;	break;
+				case KeyEvent.VK_RIGHT:	keys[5] = 0;	break;
+				case KeyEvent.VK_ENTER: keys[6] = 0; 	break;
 			    }
 		        e.consume();
 			}
@@ -159,8 +161,12 @@ public class MainC {
             			gui.type = null;
             		}
         		}else{
+					//if(keys[6]) {
+					//	GUI.my.setBall();
+					//}
+
 					/*
-        			double keyboardSpeed = 0.8;
+					double keybaardSpeed = 0.8;
         			joys[0] = (float) (keyboardSpeed*(keys[1] - keys[0]));
         			joys[1] = (float) (keyboardSpeed*(keys[3] - keys[2]));
         			joys[2] = 0;
@@ -180,19 +186,22 @@ public class MainC {
 	public static void randomwalk() {
 		double rotationAngle = cam.angle();
 		//double hypotenuseLength = cam.hypotenuse();
-	
-		//System.out.println(cam.angle());
-		if (/*cntr < 1000 && */rotationAngle > 0)  {
-			System.out.println(cam.angle());
-			joys[3] = (float) (0.1); // Rotation Speed
-			
-			
+
 		
+		if (cntr < 1000 && Math.abs(rotationAngle*3) > 0.1)  {
+			System.out.println(rotationAngle);
+			//joys[0] = (float) (0); // Vertical Motion
+			//joys[1] = (float) (0); // Horizontal Motion
+			//joys[2] = 0; // Purpose unknown
+			joys[3] = (float) -.5; // Rotation Speed
+			if (rotationAngle < Math.PI/2) {
+				joys[3] = (float) -.5; // Rotation Speed
+			}
+			else {
+				joys[3] = (float) 0.5;
+			}
 			gui.Drive(joys);
-			//cntr++;
-		}
-		else {
-			joys[3] = (float) (-0.1);
+			cntr++;
 		}
 	
 
