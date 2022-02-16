@@ -17,6 +17,10 @@ import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
 public class MainC {
+	enum States {
+		DETECT_BALL,
+		GO_TO_BALL;
+	}
 	//Camera cam = new Camera();
 	static byte[] keys = {0,0,0,0,0,0,0}; // WSADLR
 	static boolean timing = false;
@@ -33,6 +37,7 @@ public class MainC {
 
 	static int cntr;
 	static Camera cam;
+	States state;
 	
 	public static void main (String args[]){
 		cntr = 0;
@@ -185,9 +190,17 @@ public class MainC {
 	
 	public static void randomwalk() {
 		double rotationAngle = cam.angle();
-		//double hypotenuseLength = cam.hypotenuse();
+		switch (state) {
+			case DETECT_BALL:
+				detectBall();
+				break;
+			case GO_TO_BALL:
+				goToBall();
+				break;
+		}
+		//double hypotenuseLength = cam.hypoteńuse();
 
-		
+		//Find Ball
 		if (cntr < 1000 && Math.abs(rotationAngle*3) > 0.1)  {
 			System.out.println(rotationAngle);
 			//joys[0] = (float) (0); // Vertical Motion
@@ -203,6 +216,8 @@ public class MainC {
 			gui.Drive(joys);
 			cntr++;
 		}
+		// Crash into small wall that can crawl on a call in a waterfall
+
 	
 
 		//joys[0] = (float) (0); //  Vertical Motion
@@ -210,6 +225,7 @@ public class MainC {
 		//joys[2] = 0; // Purpose unknown
 		//joys[3] = (float) (0); // Rotation Speed
 		//gui.Drive(joys);
+		
 	}
 
 	static void joysticks(){
@@ -248,4 +264,33 @@ public class MainC {
 			}
 		}
 	}
+	public void detectBall() {
+		if (findBall()) {
+			state = state.GO_TO_BALL;
+		}
+	}
+	public boolean findBall(){
+		double rotationAngle = cam.angle();
+		if (cntr < 1000 && Math.abs(rotationAngle*3) > 0.1)  {
+			System.out.println(rotationAngle);
+			//joys[0] = (float) (0); // Vertical Motion
+			//joys[1] = (float) (0); // Horizontal Motion
+			//joys[2] = 0; // Purpose unknown
+			joys[3] = (float) -.5; // Rotation Speed
+			if (rotationAngle + 92 < Math.PI/2) {
+				joys[3] = (float) -.5; // Rotation Speed
+			}
+			else {
+				joys[3] = (float) 0.5;
+			}
+			gui.Drive(joys);
+			cntr++;
+			return true;
+		}
+		return false;
+	}
+	public void goToBall() {
+
+	}
+
 }
