@@ -28,12 +28,16 @@ public class MainC {
 	static long time;
 	static int highScore = 0;
 	static GUI gui;
+	static SwerveGui swerve;
     static Component stickX1 = null;
     static Component stickY1 = null;
     static Component stickX2 = null;
     static Component stickY2 = null;
     static Component startBtn = null;
 	static float [] joys = new float[4];
+	static boolean ballFound = false;
+	static boolean reachBall = false;
+
 
 	static int cntr;
 	static Camera cam;
@@ -190,6 +194,7 @@ public class MainC {
 	
 	public static void randomwalk() {
 		double rotationAngle = cam.angle();
+		/*
 		switch (state) {
 			case DETECT_BALL:
 				detectBall();
@@ -198,15 +203,15 @@ public class MainC {
 				goToBall();
 				break;
 		}
+		*/
 		//double hypotenuseLength = cam.hypoteńuse();
 
 		//Find Ball
-		if (cntr < 1000 && Math.abs(rotationAngle*3) > 0.1)  {
-			System.out.println(rotationAngle);
+		if (cntr < 1000 && Math.abs(rotationAngle) > 0.1 && ballFound == false)  {
 			//joys[0] = (float) (0); // Vertical Motion
 			//joys[1] = (float) (0); // Horizontal Motion
 			//joys[2] = 0; // Purpose unknown
-			joys[3] = (float) -.5; // Rotation Speed
+			joys[3] = (float) -.00001; // Rotation Speed
 			if (rotationAngle + 92 < Math.PI/2) {
 				joys[3] = (float) -.5; // Rotation Speed
 			}
@@ -216,16 +221,18 @@ public class MainC {
 			gui.Drive(joys);
 			cntr++;
 		}
-		// Crash into small wall that can crawl on a call in a waterfall
-
+		else if (ballFound == true && reachBall == false); {
+			//joys[3] = (float) 0;
+			ballFound = true;
+			double[] vector = cam.ballVector();
+			joys[0] = (float) (vector[1]/vector[2]);
+			joys[1] = (float) (vector[0]/vector[2]);
+			gui.Drive(joys);
+			reachBall = true;
+		}
 	
 
-		//joys[0] = (float) (0); //  Vertical Motion
-		//joys[1] = (float) (0); // Horizontal Motion
-		//joys[2] = 0; // Purpose unknown
-		//joys[3] = (float) (0); // Rotation Speed
-		//gui.Drive(joys);
-		
+		// Crash into small wall that can crawl on a call in a waterfall (DON'T DELETE VERY IMPORTANT)
 	}
 
 	static void joysticks(){

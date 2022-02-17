@@ -15,12 +15,10 @@ public class Camera {
         //this.Robot = Robot;
     }
 
-
     public double dotProduct(double v1X, double v1Y, double v2X, double v2Y) {
         double product = (v1X*v2X) + (v1Y*v2Y);
         return product;
     }
-
     public double angle() {
         double vectorBX = -(gui.getTrueRobotX() - gui.ballX);
         double vectorBY = -(gui.getTrueRobotY() - gui.ballY);
@@ -34,16 +32,20 @@ public class Camera {
 
         double magVectorA = Math.sqrt(dotProduct(vectorAX, vectorAY, vectorAX, vectorAY));
         double magVectorB = Math.sqrt(dotProduct(vectorBX, vectorBY, vectorBX, vectorBY));
-        System.out.println(vectorAX + "," + vectorAY);
-        System.out.println(dotProduct(vectorAX, vectorAY, vectorAX, vectorAY));
-        //System.out.println((dotProduct(vectorAX, vectorAY, vectorAX, vectorAY))/(magVectorA*magVectorB));
-        //System.out.println(dotProduct(vectorBX, vectorBY, vectorBX, vectorBY));
-        //System.out.println(magVectorA + "," + magVectorB);
         if ((magVectorA*magVectorB) != 0) {
             double angle2 = Math.acos((dotProduct(vectorAX, vectorAY, vectorBX, vectorBY))/(magVectorA*magVectorB));
-            //System.out.println(angle2);
+            System.out.println(angle2);
             return angle2;
         }
         return 0.8;
+    }
+    public double[] ballVector() {
+        double vectorBX1 = -(gui.getTrueRobotX() - gui.ballX);
+        double vectorBY1 = -(gui.getTrueRobotY() - gui.ballY);
+        //System.out.println(gui.RobotX + "," + gui.RobotY + "," + gui.frontX + "," + gui.frontY);
+
+        double magVectorB = Math.sqrt(dotProduct(vectorBX1, vectorBY1, vectorBX1, vectorBY1));
+        double[] ballVectorArray = {vectorBX1, vectorBY1, magVectorB};   
+        return ballVectorArray; 
     }
 }
