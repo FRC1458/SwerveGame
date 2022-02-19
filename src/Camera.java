@@ -34,7 +34,6 @@ public class Camera {
         double magVectorB = Math.sqrt(dotProduct(vectorBX, vectorBY, vectorBX, vectorBY));
         if ((magVectorA*magVectorB) != 0) {
             double angle2 = Math.acos((dotProduct(vectorAX, vectorAY, vectorBX, vectorBY))/(magVectorA*magVectorB));
-            System.out.println(angle2);
             return angle2;
         }
         return 0.8;

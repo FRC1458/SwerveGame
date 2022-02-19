@@ -19,7 +19,8 @@ import net.java.games.input.ControllerEnvironment;
 public class MainC {
 	enum States {
 		DETECT_BALL,
-		GO_TO_BALL;
+		GO_TO_BALL,
+		PICK_UP_BALL;
 	}
 	//Camera cam = new Camera();
 	static byte[] keys = {0,0,0,0,0,0,0}; // WSADLR
@@ -41,7 +42,7 @@ public class MainC {
 
 	static int cntr;
 	static Camera cam;
-	States state;
+	static States state;
 	
 	public static void main (String args[]){
 		cntr = 0;
@@ -50,6 +51,7 @@ public class MainC {
 		Controller stick1 = null;
 		Controller stick2 = null;
 		Controller.Type type = null;
+		state = States.DETECT_BALL;
         for(int i =0;i<ca.length;i++){
         	if(ca[i].getType() == Controller.Type.GAMEPAD){
         		xbox = ca[i];
@@ -77,6 +79,7 @@ public class MainC {
         }
         
 		gui = new GUI(type);
+		swerve = new SwerveGui();
 		cam = new Camera(gui.SwerveGui());
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gui.pack();
@@ -194,7 +197,6 @@ public class MainC {
 	
 	public static void randomwalk() {
 		double rotationAngle = cam.angle();
-		/*
 		switch (state) {
 			case DETECT_BALL:
 				detectBall();
@@ -202,11 +204,13 @@ public class MainC {
 			case GO_TO_BALL:
 				goToBall();
 				break;
+			case PICK_UP_BALL:
+				pickUpBall();
+				break;
 		}
-		*/
-		//double hypotenuseLength = cam.hypoteńuse();
-
+		System.out.println(state);
 		//Find Ball
+		/*
 		if (cntr < 1000 && Math.abs(rotationAngle) > 0.1 && ballFound == false)  {
 			//joys[0] = (float) (0); // Vertical Motion
 			//joys[1] = (float) (0); // Horizontal Motion
@@ -221,19 +225,27 @@ public class MainC {
 			gui.Drive(joys);
 			cntr++;
 		}
-		else if (ballFound == true && reachBall == false); {
-			//joys[3] = (float) 0;
+		
+		else if (reachBall == false) {
+			joys[3] = (float) 0;
 			ballFound = true;
 			double[] vector = cam.ballVector();
 			joys[0] = (float) (vector[1]/vector[2]);
 			joys[1] = (float) (vector[0]/vector[2]);
 			gui.Drive(joys);
-			reachBall = true;
+		
 		}
-	
+		if (swerve.getTrueRobotX() == swerve.ballX && (swerve.getTrueRobotY() == swerve.ballY)) {
+			System.out.println ("Crash into small wall that can crawl on a call in a waterfall");
 
+			reachBall = true;
+			joys[0] = (float) (0);
+			joys[1] = (float) (0);
+		}	
+		*/
 		// Crash into small wall that can crawl on a call in a waterfall (DON'T DELETE VERY IMPORTANT)
 	}
+
 
 	static void joysticks(){
 		float [] prevJoys = new float[4];
@@ -271,14 +283,16 @@ public class MainC {
 			}
 		}
 	}
-	public void detectBall() {
-		if (findBall()) {
-			state = state.GO_TO_BALL;
-		}
+
+	public static void pickUpBall() {
+		joys[0] = (float) 0;
+		joys[1] = (float) 0;
+		joys[2] = (float) 0;
+		joys[3] = (float) 0;
 	}
-	public boolean findBall(){
+	public static void detectBall(){
 		double rotationAngle = cam.angle();
-		if (cntr < 1000 && Math.abs(rotationAngle*3) > 0.1)  {
+		if (Math.abs(rotationAngle*3) > 0.1)  {
 			System.out.println(rotationAngle);
 			//joys[0] = (float) (0); // Vertical Motion
 			//joys[1] = (float) (0); // Horizontal Motion
@@ -291,13 +305,21 @@ public class MainC {
 				joys[3] = (float) 0.5;
 			}
 			gui.Drive(joys);
-			cntr++;
-			return true;
 		}
-		return false;
+		else {
+			state = States.GO_TO_BALL;
+		}	
 	}
-	public void goToBall() {
-
+	public static void goToBall() {
+		double ballVectorMag = cam.ballVector()[2];
+		joys[3] = (float) 0;
+		ballFound = true;
+		double[] vector = cam.ballVector();
+		joys[0] = (float) (vector[1]/vector[2]);
+		joys[1] = (float) (vector[0]/vector[2]);
+		gui.Drive(joys);
+		if (ballVectorMag < 10) {
+			state = States.PICK_UP_BALL;
+		}
 	}
-
 }

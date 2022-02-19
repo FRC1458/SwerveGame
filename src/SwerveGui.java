@@ -53,8 +53,8 @@ public class SwerveGui{
 	}
 
 
-	int ballX = (int)(Math.random()*((800)+1));
-	int ballY = (int)(Math.random()*((500)+1));
+	 int ballX = (int)(Math.random()*((800)+1));
+	 int ballY = (int)(Math.random()*((500)+1));
 
 	public void setBall() {
 		ballX = (int)(Math.random()*((1000)+1));
