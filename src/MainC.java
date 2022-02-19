@@ -3,6 +3,7 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.lang.Math;
+import java.util.Timer;
 //import java.io.BufferedReader;
 //import java.io.BufferedWriter;
 //import java.io.File;
@@ -20,7 +21,10 @@ public class MainC {
 	enum States {
 		DETECT_BALL,
 		GO_TO_BALL,
-		PICK_UP_BALL;
+		PICK_UP_BALL,
+		FACE_HUB,
+		GO_TO_HUB,
+		DROP_BALL;
 	}
 	//Camera cam = new Camera();
 	static byte[] keys = {0,0,0,0,0,0,0}; // WSADLR
@@ -207,8 +211,16 @@ public class MainC {
 			case PICK_UP_BALL:
 				pickUpBall();
 				break;
-		}
-		System.out.println(state);
+			case FACE_HUB:
+				faceHub();
+				break;
+			case GO_TO_HUB:
+				goToHub();
+				break;
+			case DROP_BALL:
+				dropBall();
+				break;		
+			}
 		//Find Ball
 		/*
 		if (cntr < 1000 && Math.abs(rotationAngle) > 0.1 && ballFound == false)  {
@@ -283,17 +295,59 @@ public class MainC {
 			}
 		}
 	}
-
-	public static void pickUpBall() {
+	public static void dropBall() {
 		joys[0] = (float) 0;
 		joys[1] = (float) 0;
 		joys[2] = (float) 0;
 		joys[3] = (float) 0;
 	}
+	public static void goToHub() {
+		joys[0] = (float) 0;
+		joys[1] = (float) 0;
+		joys[2] = (float) 0;
+		joys[3] = (float) 0;
+		double hubVectorMag = cam.hubVector()[2];
+		joys[3] = (float) 0;
+		double[] vectorOfHub = cam.hubVector();
+		joys[0] = (float) (vectorOfHub[1]/vectorOfHub[2]);
+		joys[1] = (float) (vectorOfHub[0]/vectorOfHub[2]);
+		gui.Drive(joys);
+		if (hubVectorMag < 205) {
+			state = States.DROP_BALL;
+		}
+	}
+	public static void faceHub() {
+		double turnAngle = cam.hubAngle();
+		if (Math.abs(turnAngle*3) > 0.1)  {
+			//joys[0] = (float) (0); // Vertical Motion
+			//joys[1] = (float) (0); // Horizontal Motion
+			//joys[2] = 0; // Purpose unknown
+			joys[3] = (float) -.5; // Rotation Speed
+			if (turnAngle + 2*Math.PI < Math.PI/2) {
+				joys[3] = (float) -.5; // Rotation Speed
+			}
+			else {
+				joys[3] = (float) 0.5;
+			}
+			gui.Drive(joys);
+		}
+		else {
+			state = States.GO_TO_HUB;
+		}	
+	}
+	public static void pickUpBall() {
+		joys[0] = (float) 0;
+		joys[1] = (float) 0;
+		joys[2] = (float) 0;
+		joys[3] = (float) 0;
+		swerve.ballX -= 1;
+		swerve.ballY -= 1;
+		state = States.FACE_HUB;
+
+	}
 	public static void detectBall(){
 		double rotationAngle = cam.angle();
 		if (Math.abs(rotationAngle*3) > 0.1)  {
-			System.out.println(rotationAngle);
 			//joys[0] = (float) (0); // Vertical Motion
 			//joys[1] = (float) (0); // Horizontal Motion
 			//joys[2] = 0; // Purpose unknown

@@ -54,10 +54,10 @@ public class SwerveGui{
 
 
 	 int ballX = (int)(Math.random()*((800)+1));
-	 int ballY = (int)(Math.random()*((500)+1));
+	 int ballY = (int)(Math.random()*((600)+1));
 
 	public void setBall() {
-		ballX = (int)(Math.random()*((1000)+1));
+		ballX = (int)(Math.random()*((800)+1));
 		ballY = (int)(Math.random()*((600)+1));
 	}
 
@@ -95,7 +95,7 @@ public class SwerveGui{
 		angle = Math.atan2(height,width);
 
 		g.drawOval(ballX, ballY, 30, 30);
-
+		g.drawOval(875, 475, 250, 250);
 
 		if(Robot.m_eDriveMode == Swerve.driveMode.gyro){
 			Robot.m_dGyroAngle = (RobotR + Math.PI/2) % (2*Math.PI);
