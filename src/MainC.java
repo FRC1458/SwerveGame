@@ -1,15 +1,6 @@
-//import java.awt.event.ComponentEvent;
-//import java.awt.event.ComponentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.lang.Math;
-import java.util.Timer;
-//import java.io.BufferedReader;
-//import java.io.BufferedWriter;
-//import java.io.File;
-//import java.io.FileReader;
-//import java.io.FileWriter;
-//import java.io.IOException;
 
 import javax.swing.JFrame;
 
@@ -27,28 +18,33 @@ public class MainC {
 		DROP_BALL;
 	}
 	//Camera cam = new Camera();
-	static byte[] keys = {0,0,0,0,0,0,0}; // WSADLR
-	static boolean timing = false;
-	static boolean reset = false;
-	static long time;
-	static int highScore = 0;
-	static GUI gui;
-	static SwerveGui swerve;
-    static Component stickX1 = null;
-    static Component stickY1 = null;
-    static Component stickX2 = null;
-    static Component stickY2 = null;
-    static Component startBtn = null;
-	static float [] joys = new float[4];
-	static boolean ballFound = false;
-	static boolean reachBall = false;
+	byte[] keys = {0,0,0,0,0,0,0}; // WSADLR
+	boolean timing = false;
+	boolean reset = false;
+	long time;
+	int highScore = 0;
+	GUI gui;
+	SwerveGui swerve;
+    Component stickX1 = null;
+	Component stickY1 = null;
+    Component stickX2 = null;
+    Component stickY2 = null;
+    Component startBtn = null;
+	float [] joys = new float[4];
+	boolean ballFound = false;
+	boolean reachBall = false;
 
 
-	static int cntr;
-	static Camera cam;
-	static States state;
+	int cntr;
+	Camera cam;
+	States state;
 	
 	public static void main (String args[]){
+		MainC m = new MainC(args);
+	}
+
+	public MainC(String args[]){
+
 		cntr = 0;
 		Controller[] ca = ControllerEnvironment.getDefaultEnvironment().getControllers();
 		Controller xbox = null;
@@ -92,19 +88,6 @@ public class MainC {
 		gui.setLocationRelativeTo(null);
 		gui.setVisible(true);
 		gui.requestFocusInWindow();
-        /*
-		gui.addComponentListener(new ComponentListener() {
-			@Override
-			
-			public void componentResized(ComponentEvent e) {
-				gui.changeWindow();
-			}
-			
-			@Override public void componentHidden(ComponentEvent arg0) {}
-			@Override public void componentMoved(ComponentEvent arg0) {}
-			@Override public void componentShown(ComponentEvent arg0) {}
-		});
-		*/
         gui.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent e) {
 			    switch (e.getKeyCode()){
@@ -132,32 +115,6 @@ public class MainC {
 		        e.consume();
 			}
 		});
-        /*
-        if ((new File("highscore.hs")).exists() == false){
-        	try {
-        	    BufferedWriter out = new BufferedWriter(new FileWriter("highscore.hs"));
-        	    out.write("0");
-        	    out.close();
-        	} catch (IOException e) {}
-        }
-        try {
-		    BufferedReader in = new BufferedReader(new FileReader("highscore.hs"));
-		    String str = in.readLine();
-		    highScore = Integer.parseInt(str);
-		    gui.highScore = highScore;
-		    in.close();
-		} catch (IOException e) {}
-        
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            public void run() {
-            	try {
-            	    BufferedWriter out = new BufferedWriter(new FileWriter("highscore.hs"));
-            	    out.write(""+gui.highScore);
-            	    out.close();
-            	} catch (IOException e) {}
-            }
-        }));
-        */
         long s = System.currentTimeMillis();
         while(true){
         	if(System.currentTimeMillis()-s > 10){
@@ -199,7 +156,7 @@ public class MainC {
 	}
 	
 	
-	public static void randomwalk() {
+	public void randomwalk() {
 		double rotationAngle = cam.angle();
 		switch (state) {
 			case DETECT_BALL:
@@ -221,45 +178,12 @@ public class MainC {
 				dropBall();
 				break;		
 			}
-		//Find Ball
-		/*
-		if (cntr < 1000 && Math.abs(rotationAngle) > 0.1 && ballFound == false)  {
-			//joys[0] = (float) (0); // Vertical Motion
-			//joys[1] = (float) (0); // Horizontal Motion
-			//joys[2] = 0; // Purpose unknown
-			joys[3] = (float) -.00001; // Rotation Speed
-			if (rotationAngle + 92 < Math.PI/2) {
-				joys[3] = (float) -.5; // Rotation Speed
-			}
-			else {
-				joys[3] = (float) 0.5;
-			}
-			gui.Drive(joys);
-			cntr++;
-		}
 		
-		else if (reachBall == false) {
-			joys[3] = (float) 0;
-			ballFound = true;
-			double[] vector = cam.ballVector();
-			joys[0] = (float) (vector[1]/vector[2]);
-			joys[1] = (float) (vector[0]/vector[2]);
-			gui.Drive(joys);
-		
-		}
-		if (swerve.getTrueRobotX() == swerve.ballX && (swerve.getTrueRobotY() == swerve.ballY)) {
-			System.out.println ("Crash into small wall that can crawl on a call in a waterfall");
-
-			reachBall = true;
-			joys[0] = (float) (0);
-			joys[1] = (float) (0);
-		}	
-		*/
 		// Crash into small wall that can crawl on a call in a waterfall (DON'T DELETE VERY IMPORTANT)
 	}
 
 
-	static void joysticks(){
+	void joysticks(){
 		float [] prevJoys = new float[4];
 		double k = .8;
 		double deadband = .1;
@@ -275,7 +199,7 @@ public class MainC {
 		gui.Drive(joys);
 	}
 	
-	static void timer(boolean startBtn){ 
+	void timer(boolean startBtn){ 
 		if(startBtn)
 		{
 			gui.resetPoints();
@@ -284,24 +208,22 @@ public class MainC {
 	    	time = System.currentTimeMillis();
 		}
 		if(timing){
-			//gui.printTime(System.currentTimeMillis()-time);
 			if(System.currentTimeMillis()-time > 20000){
 				timing = false;
 				int points = gui.getPoints();
 				if(points > highScore){
 					highScore = points;
-					//gui.setHighScore(points);
 				}
 			}
 		}
 	}
-	public static void dropBall() {
+	public void dropBall() {
 		joys[0] = (float) 0;
 		joys[1] = (float) 0;
 		joys[2] = (float) 0;
 		joys[3] = (float) 0;
 	}
-	public static void goToHub() {
+	public void goToHub() {
 		joys[0] = (float) 0;
 		joys[1] = (float) 0;
 		joys[2] = (float) 0;
@@ -316,12 +238,10 @@ public class MainC {
 			state = States.DROP_BALL;
 		}
 	}
-	public static void faceHub() {
+	public void faceHub() {
 		double turnAngle = cam.hubAngle();
 		if (Math.abs(turnAngle*3) > 0.1)  {
-			//joys[0] = (float) (0); // Vertical Motion
-			//joys[1] = (float) (0); // Horizontal Motion
-			//joys[2] = 0; // Purpose unknown
+
 			joys[3] = (float) -.5; // Rotation Speed
 			if (turnAngle + 2*Math.PI < Math.PI/2) {
 				joys[3] = (float) -.5; // Rotation Speed
@@ -335,7 +255,7 @@ public class MainC {
 			state = States.GO_TO_HUB;
 		}	
 	}
-	public static void pickUpBall() {
+	public void pickUpBall() {
 		joys[0] = (float) 0;
 		joys[1] = (float) 0;
 		joys[2] = (float) 0;
@@ -345,12 +265,10 @@ public class MainC {
 		state = States.FACE_HUB;
 
 	}
-	public static void detectBall(){
+	public void detectBall(){
 		double rotationAngle = cam.angle();
 		if (Math.abs(rotationAngle*3) > 0.1)  {
-			//joys[0] = (float) (0); // Vertical Motion
-			//joys[1] = (float) (0); // Horizontal Motion
-			//joys[2] = 0; // Purpose unknown
+
 			joys[3] = (float) -.5; // Rotation Speed
 			if (rotationAngle + 92 < Math.PI/2) {
 				joys[3] = (float) -.5; // Rotation Speed
@@ -364,7 +282,7 @@ public class MainC {
 			state = States.GO_TO_BALL;
 		}	
 	}
-	public static void goToBall() {
+	public void goToBall() {
 		double ballVectorMag = cam.ballVector()[2];
 		joys[3] = (float) 0;
 		ballFound = true;
