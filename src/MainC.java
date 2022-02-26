@@ -39,7 +39,7 @@ public class MainC {
 	States state;
 	
 	public static void main (String args[]){
-		MainC m = new MainC(args);
+		//MainC m = new MainC(args);
 	}
 
 	public MainC(String args[]){
