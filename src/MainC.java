@@ -177,7 +177,7 @@ public class MainC {
 				break;		
 			}
 		
-		// Crash into small wall that can crawl on a call in a waterfall (DON'T DELETE VERY IMPORTANT)
+		// Crash into small wall that can crawl on a call in a waterfall (DON'T DELETE VERY IMPORTANT!!!!!!!!!!!!!!)
 	}
 
 	void joysticks(){
