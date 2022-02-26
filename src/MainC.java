@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
-
+// State machine
 public class MainC {
 	enum States {
 		DETECT_BALL,
@@ -17,7 +17,6 @@ public class MainC {
 		GO_TO_HUB,
 		DROP_BALL;
 	}
-	//Camera cam = new Camera();
 	byte[] keys = {0,0,0,0,0,0,0}; // WSADLR
 	boolean timing = false;
 	boolean reset = false;
@@ -83,7 +82,6 @@ public class MainC {
 		cam = new Camera(gui.SwerveGui());
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gui.pack();
-		//gui.setResizable(false);
 		gui.setTitle("Pwnage Swerve Game");
 		gui.setLocationRelativeTo(null);
 		gui.setVisible(true);
@@ -155,7 +153,7 @@ public class MainC {
         }
 	}
 	
-	
+	// State machine
 	public void randomwalk() {
 		double rotationAngle = cam.angle();
 		switch (state) {
@@ -181,7 +179,6 @@ public class MainC {
 		
 		// Crash into small wall that can crawl on a call in a waterfall (DON'T DELETE VERY IMPORTANT)
 	}
-
 
 	void joysticks(){
 		float [] prevJoys = new float[4];
@@ -223,6 +220,7 @@ public class MainC {
 		joys[2] = (float) 0;
 		joys[3] = (float) 0;
 	}
+	// Makes robot drive to hub
 	public void goToHub() {
 		joys[0] = (float) 0;
 		joys[1] = (float) 0;
@@ -238,6 +236,7 @@ public class MainC {
 			state = States.DROP_BALL;
 		}
 	}
+	// Makes robot turn to hub
 	public void faceHub() {
 		double turnAngle = cam.hubAngle();
 		if (Math.abs(turnAngle*3) > 0.1)  {
@@ -265,6 +264,7 @@ public class MainC {
 		state = States.FACE_HUB;
 
 	}
+	// Makes robot turn to ball
 	public void detectBall(){
 		double rotationAngle = cam.angle();
 		if (Math.abs(rotationAngle*3) > 0.1)  {
@@ -282,6 +282,7 @@ public class MainC {
 			state = States.GO_TO_BALL;
 		}	
 	}
+	// Makes robot drive to ball
 	public void goToBall() {
 		double ballVectorMag = cam.ballVector()[2];
 		joys[3] = (float) 0;

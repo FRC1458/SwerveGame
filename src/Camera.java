@@ -1,19 +1,12 @@
 import java.lang.Math;
 public class Camera {
     SwerveGui gui;
-    //Swerve Robot;
-    /*
-    public double distanceX(double ballX, double robotX) {
-        return Math.abs((ballX - robotX));
-    }
-    public double distanceY(double ballY, double robotY) {
-        return Math.abs((ballY - robotY));
-    }
-    */
     public Camera(SwerveGui gui) {
         this.gui = gui;
         //this.Robot = Robot;
     }
+    // FrontX = X coordinate of tip of triangle on robot
+    // FrontY = Y coordinate of tip of triangle on robot
 
     public double dotProduct(double v1X, double v1Y, double v2X, double v2Y) {
         double product = (v1X*v2X) + (v1Y*v2Y);
@@ -43,6 +36,7 @@ public class Camera {
         double[] ballVectorArray = {vectorBX1, vectorBY1, magVectorB};   
         return ballVectorArray; 
     }
+    // hubVector = vector from robot to hub for robot to drive on
     public double[] hubVector() {
         double hubVectorX = -(gui.getTrueRobotX() - 1000);
         double hubVectorY = -(gui.getTrueRobotY() - 600);
@@ -51,6 +45,7 @@ public class Camera {
         double[] hubVectorArray = {hubVectorX, hubVectorY, magHubVector};
         return hubVectorArray;
     }
+    // hubAngle = Angle for robot to turn
     public double hubAngle() {
         double hubVectorX = -(gui.getTrueRobotX() - 1000);
         double hubVectorY = -(gui.getTrueRobotY() - 600);
