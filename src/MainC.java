@@ -273,7 +273,7 @@ public class MainC {
 			if (rotationAngle + 92 < Math.PI/2) {
 				joys[3] = (float) -.5; // Rotation Speed
 			}
-			else if (rotationAngle + 92 > Math.PI/2) {
+			else {
 				joys[3] = (float) 0.5;
 			}
 			gui.Drive(joys);
