@@ -176,8 +176,6 @@ public class MainC {
 				dropBall();
 				break;		
 			}
-		
-		// Crash into small wall that can crawl on a call in a waterfall (DON'T DELETE VERY IMPORTANT!!!!!!!!!!!!!!)
 	}
 
 	void joysticks(){
@@ -241,9 +239,9 @@ public class MainC {
 		double turnAngle = cam.hubAngle();
 		if (Math.abs(turnAngle*3) > 0.1)  {
 
-			joys[3] = (float) -.5; // Rotation Speed
-			if (turnAngle + 2*Math.PI < Math.PI/2) {
-				joys[3] = (float) -.5; // Rotation Speed
+			joys[3] = (float) -.1; // Rotation Speed
+			if (turnAngle + Math.PI > Math.PI/2) {
+				joys[3] = (float) -0.5; // Rotation Speed
 			}
 			else {
 				joys[3] = (float) 0.5;
@@ -273,7 +271,7 @@ public class MainC {
 			if (rotationAngle + 92 < Math.PI/2) {
 				joys[3] = (float) -.5; // Rotation Speed
 			}
-			else {
+			else  if (rotationAngle > Math.PI) {
 				joys[3] = (float) 0.5;
 			}
 			gui.Drive(joys);
