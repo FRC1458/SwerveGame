@@ -24,7 +24,7 @@ public class Camera {
         double magVectorB = Math.sqrt(dotProduct(vectorBX, vectorBY, vectorBX, vectorBY));
         if ((magVectorA*magVectorB) != 0) {
             double angle2 = Math.acos((dotProduct(vectorAX, vectorAY, vectorBX, vectorBY))/(magVectorA*magVectorB));
-            return angle2;
+            return angle2 - Math.PI/2;
         }
         return 0.8;
     }

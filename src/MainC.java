@@ -30,7 +30,6 @@ public class MainC {
     Component stickY2 = null;
     Component startBtn = null;
 	float [] joys = new float[4];
-	boolean ballFound = false;
 	boolean reachBall = false;
 
 
@@ -257,23 +256,14 @@ public class MainC {
 		joys[1] = (float) 0;
 		joys[2] = (float) 0;
 		joys[3] = (float) 0;
-		swerve.ballX -= 1;
-		swerve.ballY -= 1;
 		state = States.FACE_HUB;
 
 	}
 	// Makes robot turn to ball
 	public void detectBall(){
-		double rotationAngle = cam.angle();
+		double rotationAngle = cam.angle() + Math.PI/2;
 		if (Math.abs(rotationAngle*3) > 0.1)  {
-
 			joys[3] = (float) -.5; // Rotation Speed
-			if (rotationAngle + 92 < Math.PI/2) {
-				joys[3] = (float) -.5; // Rotation Speed
-			}
-			else  if (rotationAngle > Math.PI) {
-				joys[3] = (float) 0.5;
-			}
 			gui.Drive(joys);
 		}
 		else {
@@ -284,7 +274,6 @@ public class MainC {
 	public void goToBall() {
 		double ballVectorMag = cam.ballVector()[2];
 		joys[3] = (float) 0;
-		ballFound = true;
 		double[] vector = cam.ballVector();
 		joys[0] = (float) (vector[1]/vector[2]);
 		joys[1] = (float) (vector[0]/vector[2]);
