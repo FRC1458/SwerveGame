@@ -261,14 +261,18 @@ public class MainC {
 	}
 	// Makes robot turn to ball
 	public void detectBall(){
-		double rotationAngle = cam.angle() + Math.PI/2;
-		if (Math.abs(rotationAngle*3) > 0.1)  {
-			joys[3] = (float) -.5; // Rotation Speed
+		double rotationAngle = cam.angle() * Math.PI/2;
+		if (rotationAngle == 1000) {
+			joys[3] = (float) 0.1;
+			gui.Drive(joys);
+		}
+		if (Math.abs(rotationAngle)*3 > 0.1) {
+			joys[3] = (float) 0.5; // Rotation Speed 
 			gui.Drive(joys);
 		}
 		else {
 			state = States.GO_TO_BALL;
-		}	
+		}
 	}
 	// Makes robot drive to ball
 	public void goToBall() {

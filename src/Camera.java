@@ -23,8 +23,13 @@ public class Camera {
         double magVectorA = Math.sqrt(dotProduct(vectorAX, vectorAY, vectorAX, vectorAY));
         double magVectorB = Math.sqrt(dotProduct(vectorBX, vectorBY, vectorBX, vectorBY));
         if ((magVectorA*magVectorB) != 0) {
-            double angle2 = Math.acos((dotProduct(vectorAX, vectorAY, vectorBX, vectorBY))/(magVectorA*magVectorB));
-            return angle2 - Math.PI/2;
+            double angle2 = (Math.acos((dotProduct(vectorAX, vectorAY, vectorBX, vectorBY))/(magVectorA*magVectorB)) - Math.PI/2)/Math.PI/20;
+            if (Math.abs(angle2) < Math.PI/4) {
+                return(angle2);
+            }
+            else {
+                return 1000;
+            }
         }
         return 0.8;
     }
